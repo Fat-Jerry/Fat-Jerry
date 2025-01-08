@@ -14,8 +14,13 @@ def push_to_github(repo_path, commit_message, remote_url):
         subprocess.run(["git", "status"], cwd=repo_path, check=True)
         # 提交更改
         subprocess.run(["git", "commit", "-m", commit_message], cwd=repo_path, check=True)
-        # 添加远程仓库
-        subprocess.run(["git", "remote", "add", "origin", remote_url], cwd=repo_path, check=True)
+        # 检查是否已经存在远程仓库
+        result = subprocess.run(["git", "remote", "-v"], cwd=repo_path, stdout=subprocess.PIPE, text=True)
+        if "origin" not in result.stdout:
+            # 添加远程仓库
+            subprocess.run(["git", "remote", "add", "origin", remote_url], cwd=repo_path, check=True)
+        else:
+            print("Remote 'origin' already exists.")
         # 推送至远程仓库
         subprocess.run(["git", "push", "-u", "origin", "master"], cwd=repo_path, check=True)
     except subprocess.CalledProcessError as e:
