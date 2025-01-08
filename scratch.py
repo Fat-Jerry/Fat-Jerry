@@ -17,7 +17,8 @@ def push_to_github(repo_path, commit_message, remote_url):
         # 检查是否已经存在远程仓库
         result = subprocess.run(["git", "remote", "-v"], cwd=repo_path, stdout=subprocess.PIPE, text=True)
         if "origin" not in result.stdout:
-            # 添加远程仓库
+            # 添加远程仓库，使用 SSH 格式的 URL
+            remote_url = "git@github.com:Fat-Jerry/Fat-Jerry.git"
             subprocess.run(["git", "remote", "add", "origin", remote_url], cwd=repo_path, check=True)
         else:
             print("Remote 'origin' already exists.")
@@ -33,5 +34,5 @@ if __name__ == "__main__":
     # 提交信息，根据实际情况修改
     commit_message = "Initial commit"
     # GitHub 远程仓库的 URL，根据实际情况修改
-    remote_url = "https://github.com/Fat-Jerry/Fat-Jerry.git"
+    remote_url = "git@github.com:Fat-Jerry/Fat-Jerry.git"
     push_to_github(repo_path, commit_message, remote_url)
