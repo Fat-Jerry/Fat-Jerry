@@ -97,7 +97,7 @@ def main():  # 程序入口函数
     window = MainWindow()  # 创建主窗口实例
     window.show()  # 显示主窗口
     sys.exit(app.exec_())  # 进入应用程序的事件循环，直到程序退出
-
+111111
 
 if __name__ == "__main__":
     main()
